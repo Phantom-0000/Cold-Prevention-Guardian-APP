@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Protection Anti-Rhume</string>
+
+    <!-- Auth Screen -->
+    <string name="auth_title">Protection Anti-Rhume</string>
+    <string name="auth_login">Connexion</string>
+    <string name="auth_register">Inscription</string>
+    <string name="auth_username">Nom d\'utilisateur</string>
+    <string name="auth_email">E-mail</string>
+    <string name="auth_password">Mot de passe</string>
+    <string name="auth_confirm_password">Confirmer le mot de passe</string>
+    <string name="auth_no_account">Pas de compte ? S\'inscrire</string>
+    <string name="auth_has_account">Déjà un compte ? Se connecter</string>
+    <string name="auth_error_empty_email">Veuillez entrer votre e-mail</string>
+    <string name="auth_error_empty_password">Veuillez entrer votre mot de passe</string>
+    <string name="auth_error_password_mismatch">Les mots de passe ne correspondent pas</string>
+    <string name="auth_error_password_short">Le mot de passe doit contenir au moins 6 caractères</string>
+    <string name="auth_error_empty_username">Veuillez entrer un nom d\'utilisateur</string>
+
+    <!-- Dashboard Screen -->
+    <string name="dashboard_title">Surveillance de la température</string>
+    <string name="dashboard_latest_temp">Dernière température</string>
+    <string name="dashboard_fever_warning">⚠️ Température élevée, veuillez faire attention</string>
+    <string name="dashboard_chart_title">Tendance de température sur 7 jours</string>
+    <string name="dashboard_health_assessment">Évaluation de santé &amp; conseils</string>
+    <string name="dashboard_medication_title">Informations sur les médicaments</string>
+    <string name="dashboard_medication_count">%d médicaments recommandés</string>
+    <string name="dashboard_community_title">Communauté</string>
+    <string name="dashboard_comment_placeholder">Partagez vos réflexions…</string>
+    <string name="dashboard_post">Publier</string>
+    <string name="dashboard_no_comments">Aucun commentaire pour l\'instant. Soyez le premier !</string>
+    <string name="dashboard_input_title">Enregistrer la température</string>
+    <string name="dashboard_date_label">Date : %s</string>
+    <string name="dashboard_temp_label">Température (°C)</string>
+    <string name="dashboard_temp_placeholder">35,0 - 42,0</string>
+    <string name="dashboard_error_invalid_temp">Veuillez entrer une température valide</string>
+    <string name="dashboard_error_temp_range">La température doit être comprise entre 35,0 - 42,0°C</string>
+    <string name="dashboard_submit">Soumettre</string>
+    <string name="dashboard_confirm">Confirmer</string>
+    <string name="dashboard_cancel">Annuler</string>
+    <string name="dashboard_recent_records">Enregistrements récents</string>
+    <string name="dashboard_no_records">Aucun enregistrement pour l\'instant</string>
+    <string name="dashboard_analysis_label">📊 Analyse</string>
+    <string name="dashboard_causes_label">🔍 Causes possibles</string>
+    <string name="dashboard_complications_label">⚠️ Risques de complications</string>
+    <string name="dashboard_advice_label">💡 Conseil</string>
+    <string name="dashboard_fever_line">37,5°C Ligne de fièvre</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_welcome">Bon retour, %s</string>
+    <string name="profile_age_group">Groupe d\'âge</string>
+    <string name="profile_language">Langue / Language</string>
+    <string name="profile_logout">Déconnexion</string>
+
+    <!-- Age Groups -->
+    <string name="age_group_children">Enfants</string>
+    <string name="age_group_teenagers">Adolescents</string>
+    <string name="age_group_adults">Adultes</string>
+    <string name="age_group_seniors">Seniors</string>
+
+    <!-- Languages -->
+    <string name="language_chinese">中文</string>
+    <string name="language_english">English</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_french">Français</string>
+    <string name="language_spanish">Español</string>
+
+    <!-- Chat Screen -->
+    <string name="chat_title">Assistant IA</string>
+    <string name="chat_placeholder">Posez vos questions de santé…</string>
+    <string name="chat_send">Envoyer</string>
+    <string name="chat_role_user">Vous</string>
+    <string name="chat_role_ai">Assistant IA</string>
+    <string name="chat_thinking">Analyse en cours…</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Tableau de bord</string>
+    <string name="nav_ai_assistant">Assistant IA</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- DeepSeek API System Prompt -->
+    <string name="deepseek_system_prompt">Vous êtes un assistant professionnel en prévention du rhume. Sur la base des informations de l\'utilisateur, fournissez des conseils professionnels sur l\'analyse des symptômes, les causes possibles, les précautions et les conseils de prévention. Si des médicaments sont mentionnés, soulignez la nécessité de consulter un médecin. Veuillez répondre dans la langue utilisée par l\'utilisateur.</string>
+
+    <!-- Health Assessment Texts -->
+    <string name="health_title_normal">Température normale</string>
+    <string name="health_analysis_normal">Le système immunitaire est dans un état stable ; aucun signe de fièvre détecté.</string>
+    <string name="health_causes_normal">La température actuelle est dans la plage normale. Aucune inquiétude.</string>
+    <string name="health_complications_normal">Aucun risque significatif de complications.</string>
+    <string name="health_advice_normal">Maintenez une bonne hygiène, lavez-vous les mains fréquemment et restez au chaud.</string>
+
+    <string name="health_title_mild">Température légèrement élevée</string>
+    <string name="health_analysis_mild">Le système immunitaire a déclenché une réponse ; une légère inflammation peut être présente.</string>
+    <string name="health_causes_mild">Peut être dû à un rhume saisonnier, une réaction post-vaccinale ou une infection légère.</string>
+    <string name="health_complications_mild">Si elle n\'est pas contrôlée, la température peut continuer à augmenter.</string>
+    <string name="health_advice_mild">Une intervention symptomatique est recommandée. Reposez-vous, buvez beaucoup d\'eau et surveillez la température de près.</string>
+
+    <string name="health_title_fever">Forte fièvre / Grippe suspectée</string>
+    <string name="health_analysis_fever">Forte fièvre soudaine — le système immunitaire est en état de combat actif.</string>
+    <string name="health_causes_fever">Forte suspicion de virus grippal ou d\'infection bactérienne.</string>
+    <string name="health_complications_fever">Une forte fièvre persistante peut entraîner une déshydratation, un déséquilibre électrolytique ou des convulsions fébriles.</string>
+    <string name="health_advice_fever">N\'utilisez PAS d\'eau froide ou d\'alcool pour le refroidissement physique. Buvez beaucoup d\'eau tiède. Contactez immédiatement un médecin pour évaluer si un traitement antiviral est nécessaire.</string>
+
+    <string name="health_title_emergency">Hyperpyrexie d\'urgence</string>
+    <string name="health_analysis_emergency">La température centrale est significativement élevée ; le corps est dans un état de stress à haut risque.</string>
+    <string name="health_causes_emergency">Infection sévère, coup de chaleur ou autres facteurs pathologiques aigus.</string>
+    <string name="health_complications_emergency">Un risque de lésions organiques existe ; un traitement d\'urgence est nécessaire.</string>
+    <string name="health_advice_emergency">Cherchez immédiatement une intervention médicale d\'urgence ! En attendant les secours, maintenez le patient ventilé et continuez à surveiller la température.</string>
+
+    <!-- Medication Texts -->
+    <string name="med_name_vitamin_d3">Vitamine D3</string>
+    <string name="med_region_global">Disponible dans le monde entier</string>
+    <string name="med_desc_vitamin_d3">Soutient la fonction immunitaire et réduit le risque d\'infections respiratoires.</string>
+
+    <string name="med_name_echinacea">Échinacée (Echinacea)</string>
+    <string name="med_region_eu_us">Courant en Europe et aux États-Unis</string>
+    <string name="med_desc_echinacea">Stimulant immunitaire à base de plantes pouvant aider à raccourcir la durée des rhumes.</string>
+
+    <string name="med_name_paracetamol">Paracétamol</string>
+    <string name="med_desc_paracetamol">Antipyrétique et analgésique utilisé pour réduire la fièvre et soulager les maux de tête et les douleurs musculaires.</string>
+    <string name="med_warning_paracetamol">Ne pas dépasser 4 prises en 24 heures. Respecter un intervalle d\'au moins 4 heures entre les prises.</string>
+
+    <string name="med_name_guaifenesin">Guaïfénésine</string>
+    <string name="med_desc_guaifenesin">Expectorant qui aide à fluidifier les sécrétions respiratoires et à soulager la toux.</string>
+
+    <string name="med_name_ibuprofen">Ibuprofène</string>
+    <string name="med_desc_ibuprofen">Anti-inflammatoire non stéroïdien (AINS) — antipyrétique et analgésique puissant.</string>
+    <string name="med_warning_ibuprofen">À utiliser avec prudence chez les patients souffrant d\'ulcères gastriques ou d\'asthme. Éviter de prendre à jeun.</string>
+
+    <string name="med_name_lemsip">Lemsip (Boisson chaude composée)</string>
+    <string name="med_region_eu_au">Courant en Europe et en Australie</string>
+    <string name="med_desc_lemsip">Boisson chaude composée contenant du paracétamol et de la phényléphrine pour soulager les symptômes grippaux.</string>
+    <string name="med_warning_lemsip">Ne pas utiliser avec d\'autres médicaments contenant du paracétamol.</string>
+
+    <string name="med_type_preventive">Prévention</string>
+    <string name="med_type_treatment">Traitement</string>
+
+    <!-- Health Detail Screen -->
+    <string name="health_detail_title">Évaluation &amp; Médication</string>
+    <string name="nav_health_detail">Évaluation</string>
+</resources>
