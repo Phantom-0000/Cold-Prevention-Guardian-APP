@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">防感冒卫士</string>
+
+    <!-- Auth Screen -->
+    <string name="auth_title">Cold Prevention Guardian</string>
+    <string name="auth_login">登录</string>
+    <string name="auth_register">注册</string>
+    <string name="auth_username">用户名</string>
+    <string name="auth_email">邮箱</string>
+    <string name="auth_password">密码</string>
+    <string name="auth_confirm_password">确认密码</string>
+    <string name="auth_no_account">没有账号？点击注册</string>
+    <string name="auth_has_account">已有账号？点击登录</string>
+    <string name="auth_error_empty_email">请输入邮箱</string>
+    <string name="auth_error_empty_password">请输入密码</string>
+    <string name="auth_error_password_mismatch">两次输入的密码不一致</string>
+    <string name="auth_error_password_short">密码长度至少6位</string>
+    <string name="auth_error_empty_username">请输入用户名</string>
+
+    <!-- Dashboard Screen -->
+    <string name="dashboard_title">体温监测</string>
+    <string name="dashboard_latest_temp">最新体温</string>
+    <string name="dashboard_fever_warning">⚠️ 体温偏高，请注意</string>
+    <string name="dashboard_chart_title">近7天体温趋势</string>
+    <string name="dashboard_health_assessment">健康评估与建议</string>
+    <string name="dashboard_medication_title">药物信息</string>
+    <string name="dashboard_medication_count">共 %d 种推荐药物</string>
+    <string name="dashboard_community_title">社区互动</string>
+    <string name="dashboard_comment_placeholder">分享你的想法…</string>
+    <string name="dashboard_post">发表</string>
+    <string name="dashboard_no_comments">暂无评论，快来发表第一条吧！</string>
+    <string name="dashboard_input_title">录入体温</string>
+    <string name="dashboard_date_label">日期：%s</string>
+    <string name="dashboard_temp_label">体温 (°C)</string>
+    <string name="dashboard_temp_placeholder">35.0 - 42.0</string>
+    <string name="dashboard_error_invalid_temp">请输入有效的体温数值</string>
+    <string name="dashboard_error_temp_range">体温范围应在 35.0 - 42.0°C 之间</string>
+    <string name="dashboard_submit">提交</string>
+    <string name="dashboard_confirm">确定</string>
+    <string name="dashboard_cancel">取消</string>
+    <string name="dashboard_recent_records">最近记录</string>
+    <string name="dashboard_no_records">暂无记录</string>
+    <string name="dashboard_analysis_label">📊 分析</string>
+    <string name="dashboard_causes_label">🔍 可能起因</string>
+    <string name="dashboard_complications_label">⚠️ 并发症风险</string>
+    <string name="dashboard_advice_label">💡 建议</string>
+    <string name="dashboard_fever_line">37.5°C 发烧线</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_welcome">欢迎回来，%s</string>
+    <string name="profile_age_group">年龄段</string>
+    <string name="profile_language">语言 / Language</string>
+    <string name="profile_logout">退出登录</string>
+
+    <!-- Age Groups -->
+    <string name="age_group_children">儿童</string>
+    <string name="age_group_teenagers">青少年</string>
+    <string name="age_group_adults">成年人</string>
+    <string name="age_group_seniors">老年人</string>
+
+    <!-- Languages -->
+    <string name="language_chinese">中文</string>
+    <string name="language_english">English</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_french">Français</string>
+    <string name="language_spanish">Español</string>
+
+    <!-- Chat Screen -->
+    <string name="chat_title">AI 智能助手</string>
+    <string name="chat_placeholder">输入你的健康问题…</string>
+    <string name="chat_send">发送</string>
+    <string name="chat_role_user">你</string>
+    <string name="chat_role_ai">AI 助手</string>
+    <string name="chat_thinking">正在分析…</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">仪表板</string>
+    <string name="nav_ai_assistant">AI助手</string>
+    <string name="nav_profile">个人信息</string>
+
+    <!-- DeepSeek API System Prompt -->
+    <string name="deepseek_system_prompt">你是一个专业的感冒预防助手。请根据用户提供的信息，从症状分析、可能病因、注意事项和预防建议等方面进行专业解答。如涉及用药，请强调需咨询医生。请用中文简体回答。</string>
+
+    <!-- Health Assessment Texts -->
+    <string name="health_title_normal">正常体温</string>
+    <string name="health_analysis_normal">免疫系统处于平稳状态，身体未检测到发热迹象。</string>
+    <string name="health_causes_normal">当前体温在正常范围内，无需担忧。</string>
+    <string name="health_complications_normal">无明显并发症风险。</string>
+    <string name="health_advice_normal">保持良好卫生习惯，勤洗手，注意保暖。</string>
+
+    <string name="health_title_mild">体温轻度升高</string>
+    <string name="health_analysis_mild">免疫系统已启动应答，可能出现轻微炎症反应。</string>
+    <string name="health_causes_mild">可能是季节性感冒、疫苗接种后反应或轻微感染。</string>
+    <string name="health_complications_mild">若不加以控制，体温可能进一步上升。</string>
+    <string name="health_advice_mild">建议对症干预，多休息、多饮水，密切监测体温变化。</string>
+
+    <string name="health_title_fever">高烧 / 疑似流感</string>
+    <string name="health_analysis_fever">突发高热，免疫系统正处于激烈对抗状态。</string>
+    <string name="health_causes_fever">高度怀疑流感病毒感染或细菌性感染。</string>
+    <string name="health_complications_fever">持续高热可能引发脱水、电解质紊乱或热性惊厥。</string>
+    <string name="health_advice_fever">请勿使用冷水或酒精进行物理降温。大量补充温水。立即联系医生评估是否需要抗病毒治疗。</string>
+
+    <string name="health_title_emergency">紧急高烧</string>
+    <string name="health_analysis_emergency">核心温度显著升高，机体处于高危应激状态。</string>
+    <string name="health_causes_emergency">严重感染、热射病或其他急性病理性因素。</string>
+    <string name="health_complications_emergency">存在器官功能受损风险，需紧急处理。</string>
+    <string name="health_advice_emergency">立即寻求紧急医疗干预！在等待救援期间保持患者通风并持续监测体温。</string>
+
+    <!-- Medication Texts -->
+    <string name="med_name_vitamin_d3">维生素 D3 (Vitamin D3)</string>
+    <string name="med_region_global">全球通用</string>
+    <string name="med_desc_vitamin_d3">支持免疫系统功能，降低呼吸道感染风险。</string>
+
+    <string name="med_name_echinacea">紫锥菊 (Echinacea)</string>
+    <string name="med_region_eu_us">欧美常用</string>
+    <string name="med_desc_echinacea">草本免疫增强剂，有助于缩短感冒持续时间。</string>
+
+    <string name="med_name_paracetamol">扑热息痛 (Paracetamol)</string>
+    <string name="med_desc_paracetamol">解热镇痛药，用于降低体温和缓解头痛、肌肉酸痛。</string>
+    <string name="med_warning_paracetamol">24小时内不超过4次，单次间隔至少4小时。</string>
+
+    <string name="med_name_guaifenesin">愈创甘油醚 (Guaifenesin)</string>
+    <string name="med_desc_guaifenesin">祛痰剂，帮助稀释呼吸道分泌物，缓解咳嗽。</string>
+
+    <string name="med_name_ibuprofen">布洛芬 (Ibuprofen)</string>
+    <string name="med_desc_ibuprofen">非甾体抗炎药（NSAID），强力解热镇痛。</string>
+    <string name="med_warning_ibuprofen">胃溃疡、哮喘患者慎用。避免空腹服用。</string>
+
+    <string name="med_name_lemsip">复方感冒饮 (Lemsip)</string>
+    <string name="med_region_eu_au">欧美/澳洲常用</string>
+    <string name="med_desc_lemsip">含扑热息痛和苯肾上腺素的复方热饮，缓解流感症状。</string>
+    <string name="med_warning_lemsip">请勿与其他含扑热息痛成分药物同时使用。</string>
+
+    <string name="med_type_preventive">预防</string>
+    <string name="med_type_treatment">治疗</string>
+
+    <!-- Health Detail Screen -->
+    <string name="health_detail_title">评估与用药</string>
+    <string name="nav_health_detail">健康评估</string>
+</resources>

@@ -1,0 +1,77 @@
+Starting a Gradle Daemon, 3 busy and 4 stopped Daemons could not be reused, use --status for details
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:processDebugGoogleServices UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:processDebugNavigationResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:generateDebugRFile UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:mergeLibDexDebug
+> Task :app:checkDebugAarMetadata
+> Task :app:compileDebugNavigationResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:mergeDebugResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeExtDexDebug
+> Task :app:processDebugResources FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:processDebugResources'.
+> A failure occurred while executing com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask$TaskAction
+   > Android resource linking failed
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:5:5-25:19: AAPT: error: resource xml/data_extraction_rules (aka com.example.coldpreventionguardianapp:xml/data_extraction_rules) not found.
+         
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:5:5-25:19: AAPT: error: resource xml/backup_rules (aka com.example.coldpreventionguardianapp:xml/backup_rules) not found.
+         
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:5:5-25:19: AAPT: error: resource mipmap/ic_launcher (aka com.example.coldpreventionguardianapp:mipmap/ic_launcher) not found.
+         
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:5:5-25:19: AAPT: error: resource string/app_name (aka com.example.coldpreventionguardianapp:string/app_name) not found.
+         
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:5:5-25:19: AAPT: error: resource mipmap/ic_launcher_round (aka com.example.coldpreventionguardianapp:mipmap/ic_launcher_round) not found.
+         
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:5:5-25:19: AAPT: error: resource style/Theme.ColdPreventionGuardianAPP (aka com.example.coldpreventionguardianapp:style/Theme.ColdPreventionGuardianAPP) not found.
+         
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:14:9-24:20: AAPT: error: resource string/app_name (aka com.example.coldpreventionguardianapp:string/app_name) not found.
+         
+     ERROR: E:\Cold Prevention Guardian APP\app\src\main\AndroidManifest.xml:14:9-24:20: AAPT: error: resource style/Theme.ColdPreventionGuardianAPP (aka com.example.coldpreventionguardianapp:style/Theme.ColdPreventionGuardianAPP) not found.
+         
+     ERROR: C:\Users\Noir\.gradle\caches\9.2.1\transforms\f93084a4490249c2e5e6ff56bf7cf3b8\workspace\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:34:9-41:20: AAPT: error: resource style/Theme.Hidden (aka com.example.coldpreventionguardianapp:style/Theme.Hidden) not found.
+         
+     ERROR: C:\Users\Noir\.gradle\caches\9.2.1\transforms\51653bb996e849546f09e334e628ef76\workspace\transformed\play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69: AAPT: error: resource integer/google_play_services_version (aka com.example.coldpreventionguardianapp:integer/google_play_services_version) not found.
+         
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 50s
+32 actionable tasks: 18 executed, 14 up-to-date

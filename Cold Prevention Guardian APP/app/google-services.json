@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "262339273656",
+    "firebase_url": "https://cold-prevention-guardian-default-rtdb.firebaseio.com",
+    "project_id": "cold-prevention-guardian",
+    "storage_bucket": "cold-prevention-guardian.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262339273656:android:ecae16f4c9dd305852a54d",
+        "android_client_info": {
+          "package_name": "com.example.coldpreventionguardianapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsVOHDZTuuzH2T2Mc9Baj7MvNP_U_WRAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
