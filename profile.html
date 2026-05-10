@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息 - 感冒预防卫士</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #161b22;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            position: relative;
+            border: 1px solid #30363d;
+        }
+
+            header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(13, 17, 23, 0.6);
+                border-radius: 10px;
+                z-index: 1;
+            }
+
+            header h1 {
+                position: relative;
+                z-index: 2;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+                color: #58a6ff;
+            }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #c9d1d9;
+            text-decoration: none;
+            padding: 5px 15px;
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            z-index: 3;
+            background-color: #21262d;
+            transition: all 0.3s;
+        }
+
+            .back-btn:hover {
+                background-color: #1f6feb;
+                color: #ffffff;
+                border-color: #1f6feb;
+            }
+
+        .profile-section {
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+                color: #c9d1d9;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #30363d;
+                border-radius: 6px;
+                background-color: #0d1117;
+                color: #c9d1d9;
+                outline: none;
+            }
+
+                .form-group input:focus {
+                    border-color: #58a6ff;
+                    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+                }
+
+        button {
+            padding: 12px 24px;
+            background-color: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #2ea043;
+            }
+
+        .error-message {
+            color: #ff7b72;
+            background-color: rgba(248, 81, 73, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(248, 81, 73, 0.4);
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-message {
+            color: #3fb950;
+            background-color: rgba(63, 185, 80, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(63, 185, 80, 0.4);
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .auth-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-weight: bold;
+            color: #8b949e;
+            transition: color 0.3s;
+        }
+
+            .auth-tab.active {
+                color: #58a6ff;
+                border-bottom: 2px solid #58a6ff;
+            }
+
+        .auth-form {
+            display: none;
+        }
+
+            .auth-form.active {
+                display: block;
+            }
+
+        .user-profile {
+            display: none;
+        }
+
+        .welcome-message h2 {
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+
+        .logout-btn {
+            margin-top: 20px;
+            background-color: #21262d;
+            color: #f85149;
+            border: 1px solid #30363d;
+        }
+
+            .logout-btn:hover {
+                background-color: #da3633;
+                color: #ffffff;
+                border-color: #da3633;
+            }
+
+        .language-selector {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .language-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #8b949e;
+            padding: 5px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            border: 1px solid #30363d;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+            .language-btn.active {
+                background-color: #1f6feb;
+                color: #ffffff;
+                border-color: #1f6feb;
+            }
+
+        .age-selection {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #0d1117;
+            border-radius: 8px;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+
+            .age-selection h3 {
+                margin-bottom: 15px;
+                color: #8b949e;
+                font-size: 1rem;
+            }
+
+        .age-toggle {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+            .age-toggle button {
+                padding: 8px 18px;
+                background-color: #21262d;
+                color: #c9d1d9;
+                border: 1px solid #30363d;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-weight: normal;
+            }
+
+                .age-toggle button:hover {
+                    border-color: #8b949e;
+                    background-color: #30363d;
+                }
+
+                .age-toggle button.active {
+                    background-color: #1f6feb;
+                    color: #ffffff;
+                    border-color: #1f6feb;
+                    font-weight: bold;
+                }
+
+        /* 多语言显隐 */
+        .lang-en, .lang-de, .lang-fr, .lang-es { display: none; }
+
+        html[lang="zh-CN"] .lang-zh { display: block; }
+        html[lang="zh-CN"] button.lang-zh, html[lang="zh-CN"] a.lang-zh { display: inline-block; }
+        html[lang="en"] .lang-en { display: block; }
+        html[lang="en"] button.lang-en, html[lang="en"] a.lang-en { display: inline-block; }
+        html[lang="de"] .lang-de { display: block; }
+        html[lang="de"] button.lang-de, html[lang="de"] a.lang-de { display: inline-block; }
+        html[lang="fr"] .lang-fr { display: block; }
+        html[lang="fr"] button.lang-fr, html[lang="fr"] a.lang-fr { display: inline-block; }
+        html[lang="es"] .lang-es { display: block; }
+        html[lang="es"] button.lang-es, html[lang="es"] a.lang-es { display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="Cold Prevention Guardian.html" class="back-btn lang-zh">返回主页</a>
+            <a href="Cold Prevention Guardian.html" class="back-btn lang-en">Back to Home</a>
+            <a href="Cold Prevention Guardian.html" class="back-btn lang-de">Zurück zur Startseite</a>
+            <a href="Cold Prevention Guardian.html" class="back-btn lang-fr">Retour à l'accueil</a>
+            <a href="Cold Prevention Guardian.html" class="back-btn lang-es">Volver al inicio</a>
+            <h1 class="lang-zh">个人信息</h1>
+            <h1 class="lang-en">Profile</h1>
+            <h1 class="lang-de">Profil</h1>
+            <h1 class="lang-fr">Profil</h1>
+            <h1 class="lang-es">Perfil</h1>
+            <div class="language-selector">
+                <button type="button" id="zh-btn" class="language-btn active" onclick="setLanguage('zh-CN')">中文</button>
+                <button type="button" id="en-btn" class="language-btn" onclick="setLanguage('en')">English</button>
+                <button type="button" id="de-btn" class="language-btn" onclick="setLanguage('de')">Deutsch</button>
+                <button type="button" id="fr-btn" class="language-btn" onclick="setLanguage('fr')">Français</button>
+                <button type="button" id="es-btn" class="language-btn" onclick="setLanguage('es')">Español</button>
+            </div>
+        </header>
+
+        <div class="profile-section">
+            <div id="auth-forms">
+                <div class="auth-tabs">
+                    <button type="button" class="auth-tab active lang-zh" onclick="switchTab('login')">登录</button>
+                    <button type="button" class="auth-tab lang-zh" onclick="switchTab('register')">注册</button>
+                    <button type="button" class="auth-tab active lang-en" onclick="switchTab('login')">Login</button>
+                    <button type="button" class="auth-tab lang-en" onclick="switchTab('register')">Register</button>
+                    <button type="button" class="auth-tab active lang-de" onclick="switchTab('login')">Anmelden</button>
+                    <button type="button" class="auth-tab lang-de" onclick="switchTab('register')">Registrieren</button>
+                    <button type="button" class="auth-tab active lang-fr" onclick="switchTab('login')">Connexion</button>
+                    <button type="button" class="auth-tab lang-fr" onclick="switchTab('register')">Inscription</button>
+                    <button type="button" class="auth-tab active lang-es" onclick="switchTab('login')">Iniciar sesión</button>
+                    <button type="button" class="auth-tab lang-es" onclick="switchTab('register')">Registrarse</button>
+                </div>
+
+                <form id="login-form" class="auth-form active" onsubmit="return handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email" class="lang-zh">电子邮箱</label>
+                        <label for="login-email" class="lang-en">Email</label>
+                        <label for="login-email" class="lang-de">E-Mail</label>
+                        <label for="login-email" class="lang-fr">E-mail</label>
+                        <label for="login-email" class="lang-es">Correo electrónico</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password" class="lang-zh">密码</label>
+                        <label for="login-password" class="lang-en">Password</label>
+                        <label for="login-password" class="lang-de">Passwort</label>
+                        <label for="login-password" class="lang-fr">Mot de passe</label>
+                        <label for="login-password" class="lang-es">Contraseña</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <div id="login-error" class="error-message">
+                        <span class="lang-zh">邮箱或密码错误</span>
+                        <span class="lang-en">Incorrect email or password</span>
+                        <span class="lang-de">E-Mail oder Passwort falsch</span>
+                        <span class="lang-fr">E-mail ou mot de passe incorrect</span>
+                        <span class="lang-es">Correo o contraseña incorrectos</span>
+                    </div>
+                    <button type="submit" class="lang-zh">登录</button>
+                    <button type="submit" class="lang-en">Login</button>
+                    <button type="submit" class="lang-de">Anmelden</button>
+                    <button type="submit" class="lang-fr">Connexion</button>
+                    <button type="submit" class="lang-es">Iniciar sesión</button>
+                </form>
+
+                <form id="register-form" class="auth-form" onsubmit="return handleRegister(event)">
+                    <div class="form-group">
+                        <label for="register-username" class="lang-zh">用户名</label>
+                        <label for="register-username" class="lang-en">Username</label>
+                        <label for="register-username" class="lang-de">Benutzername</label>
+                        <label for="register-username" class="lang-fr">Nom d'utilisateur</label>
+                        <label for="register-username" class="lang-es">Nombre de usuario</label>
+                        <input type="text" id="register-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email" class="lang-zh">电子邮箱</label>
+                        <label for="register-email" class="lang-en">Email</label>
+                        <label for="register-email" class="lang-de">E-Mail</label>
+                        <label for="register-email" class="lang-fr">E-mail</label>
+                        <label for="register-email" class="lang-es">Correo electrónico</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password" class="lang-zh">密码 (最少6位)</label>
+                        <label for="register-password" class="lang-en">Password (Min 6 chars)</label>
+                        <label for="register-password" class="lang-de">Passwort (mind. 6 Zeichen)</label>
+                        <label for="register-password" class="lang-fr">Mot de passe (min. 6 car.)</label>
+                        <label for="register-password" class="lang-es">Contraseña (mín. 6 car.)</label>
+                        <input type="password" id="register-password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password" class="lang-zh">确认密码</label>
+                        <label for="register-confirm-password" class="lang-en">Confirm Password</label>
+                        <label for="register-confirm-password" class="lang-de">Passwort bestätigen</label>
+                        <label for="register-confirm-password" class="lang-fr">Confirmer le mot de passe</label>
+                        <label for="register-confirm-password" class="lang-es">Confirmar contraseña</label>
+                        <input type="password" id="register-confirm-password" required minlength="6">
+                    </div>
+                    <div id="register-error" class="error-message">
+                        <span class="lang-zh">注册失败，请检查输入</span>
+                        <span class="lang-en">Registration failed, please check inputs</span>
+                        <span class="lang-de">Registrierung fehlgeschlagen</span>
+                        <span class="lang-fr">Échec de l'inscription</span>
+                        <span class="lang-es">Error de registro</span>
+                    </div>
+                    <div id="register-success" class="success-message">
+                        <span class="lang-zh">注册成功！请登录</span>
+                        <span class="lang-en">Registration successful! Please login</span>
+                        <span class="lang-de">Registrierung erfolgreich! Bitte anmelden</span>
+                        <span class="lang-fr">Inscription réussie ! Veuillez vous connecter</span>
+                        <span class="lang-es">¡Registro exitoso! Inicie sesión</span>
+                    </div>
+                    <button type="submit" class="lang-zh">注册</button>
+                    <button type="submit" class="lang-en">Register</button>
+                    <button type="submit" class="lang-de">Registrieren</button>
+                    <button type="submit" class="lang-fr">Inscription</button>
+                    <button type="submit" class="lang-es">Registrarse</button>
+                </form>
+            </div>
+
+            <div id="user-profile" class="user-profile">
+                <div class="welcome-message">
+                    <h2 class="lang-zh">欢迎，<span id="username-display"></span>！</h2>
+                    <h2 class="lang-en">Welcome, <span id="username-display-en"></span>!</h2>
+                    <h2 class="lang-de">Willkommen, <span id="username-display-de"></span>!</h2>
+                    <h2 class="lang-fr">Bienvenue, <span id="username-display-fr"></span>!</h2>
+                    <h2 class="lang-es">Bienvenido/a, <span id="username-display-es"></span>!</h2>
+                </div>
+
+                <div class="age-selection">
+                    <h3 class="lang-zh">请选择您的年龄段：</h3>
+                    <h3 class="lang-en">Please select your age group:</h3>
+                    <h3 class="lang-de">Bitte wählen Sie Ihre Altersgruppe:</h3>
+                    <h3 class="lang-fr">Veuillez sélectionner votre tranche d'âge :</h3>
+                    <h3 class="lang-es">Seleccione su grupo de edad:</h3>
+                    <div class="age-toggle">
+                        <button type="button" class="lang-zh" onclick="setAgeGroup('儿童')">儿童</button>
+                        <button type="button" class="lang-zh" onclick="setAgeGroup('青少年')">青少年</button>
+                        <button type="button" class="lang-zh" onclick="setAgeGroup('成年人')">成年人</button>
+                        <button type="button" class="lang-zh" onclick="setAgeGroup('老年人')">老年人</button>
+
+                        <button type="button" class="lang-en" onclick="setAgeGroup('Children')">Children</button>
+                        <button type="button" class="lang-en" onclick="setAgeGroup('Teenagers')">Teenagers</button>
+                        <button type="button" class="lang-en" onclick="setAgeGroup('Adults')">Adults</button>
+                        <button type="button" class="lang-en" onclick="setAgeGroup('Seniors')">Seniors</button>
+
+                        <button type="button" class="lang-de" onclick="setAgeGroup('Kinder')">Kinder</button>
+                        <button type="button" class="lang-de" onclick="setAgeGroup('Jugendliche')">Jugendliche</button>
+                        <button type="button" class="lang-de" onclick="setAgeGroup('Erwachsene')">Erwachsene</button>
+                        <button type="button" class="lang-de" onclick="setAgeGroup('Senioren')">Senioren</button>
+
+                        <button type="button" class="lang-fr" onclick="setAgeGroup('Enfants')">Enfants</button>
+                        <button type="button" class="lang-fr" onclick="setAgeGroup('Adolescents')">Adolescents</button>
+                        <button type="button" class="lang-fr" onclick="setAgeGroup('Adultes')">Adultes</button>
+                        <button type="button" class="lang-fr" onclick="setAgeGroup('Seniors')">Seniors</button>
+
+                        <button type="button" class="lang-es" onclick="setAgeGroup('Niños')">Niños</button>
+                        <button type="button" class="lang-es" onclick="setAgeGroup('Adolescentes')">Adolescentes</button>
+                        <button type="button" class="lang-es" onclick="setAgeGroup('Adultos')">Adultos</button>
+                        <button type="button" class="lang-es" onclick="setAgeGroup('Personas mayores')">Personas mayores</button>
+                    </div>
+                </div>
+
+                <button onclick="logout()" class="logout-btn lang-zh">退出登录</button>
+                <button onclick="logout()" class="logout-btn lang-en">Logout</button>
+                <button onclick="logout()" class="logout-btn lang-de">Abmelden</button>
+                <button onclick="logout()" class="logout-btn lang-fr">Déconnexion</button>
+                <button onclick="logout()" class="logout-btn lang-es">Cerrar sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase 配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWyBexx9bjkSOMrLiktRZCNa_5WXeex10",
+            authDomain: "cold-prevention-guardian.firebaseapp.com",
+            databaseURL: "https://cold-prevention-guardian-default-rtdb.firebaseio.com",
+            projectId: "cold-prevention-guardian",
+            storageBucket: "cold-prevention-guardian.appspot.com",
+            messagingSenderId: "262339273656",
+            appId: "1:262339273656:web:c982d6347e19990252a54d"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const auth = firebase.auth();
+        const database = firebase.database();
+
+        let currentLang = 'zh-CN';
+        let currentUserData = null;
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            const langBtnMap = {
+                'zh-CN': 'zh-btn',
+                'en': 'en-btn',
+                'de': 'de-btn',
+                'fr': 'fr-btn',
+                'es': 'es-btn'
+            };
+
+            Object.keys(langBtnMap).forEach(key => {
+                const btn = document.getElementById(langBtnMap[key]);
+                if (btn) {
+                    if (key === lang) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                }
+            });
+
+            toggleLanguageElements();
+
+            if (auth.currentUser) {
+                database.ref('users/' + auth.currentUser.uid).update({ language: lang });
+            }
+        }
+
+        function toggleLanguageElements() {
+            const lang = document.documentElement.lang;
+            const allLangs = ['zh-CN', 'en', 'de', 'fr', 'es'];
+            const langClassMap = {
+                'zh-CN': 'lang-zh',
+                'en': 'lang-en',
+                'de': 'lang-de',
+                'fr': 'lang-fr',
+                'es': 'lang-es'
+            };
+
+            allLangs.forEach(l => {
+                const cls = langClassMap[l];
+                const isActive = (l === lang);
+                document.querySelectorAll('.' + cls).forEach(el => {
+                    if (isActive) {
+                        if (el.tagName === 'BUTTON' || el.tagName === 'A' || el.tagName === 'SPAN') {
+                            el.style.display = 'inline-block';
+                        } else {
+                            el.style.display = 'block';
+                        }
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function switchTab(tab) {
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('register-error').style.display = 'none';
+            document.getElementById('register-success').style.display = 'none';
+
+            if (tab === 'login') {
+                document.getElementById('login-form').classList.add('active');
+                document.getElementById('register-form').classList.remove('active');
+            } else {
+                document.getElementById('login-form').classList.remove('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+
+            const loginTexts = ['登录', 'Login', 'Anmelden', 'Connexion', 'Iniciar sesión'];
+            const registerTexts = ['注册', 'Register', 'Registrieren', 'Inscription', 'Registrarse'];
+
+            document.querySelectorAll('.auth-tab').forEach(t => {
+                if (loginTexts.includes(t.textContent) && tab === 'login') {
+                    t.classList.add('active');
+                } else if (registerTexts.includes(t.textContent) && tab === 'register') {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    document.getElementById('login-form').reset();
+                })
+                .catch(error => {
+                    document.getElementById('login-error').style.display = 'block';
+                    console.error("Login Error:", error);
+                });
+            return false;
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                const errEl = document.getElementById('register-error');
+                let errMsg = '密码不匹配';
+                if (currentLang === 'en') errMsg = 'Passwords do not match';
+                else if (currentLang === 'de') errMsg = 'Passwörter stimmen nicht überein';
+                else if (currentLang === 'fr') errMsg = 'Les mots de passe ne correspondent pas';
+                else if (currentLang === 'es') errMsg = 'Las contraseñas no coinciden';
+                errEl.innerHTML = errMsg;
+                errEl.style.display = 'block';
+                return false;
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    return database.ref('users/' + user.uid).set({
+                        username: username,
+                        email: email,
+                        language: currentLang,
+                        ageGroup: '成年人',
+                        registeredAt: new Date().toISOString()
+                    });
+                })
+                .then(() => {
+                    document.getElementById('register-success').style.display = 'block';
+                    document.getElementById('register-error').style.display = 'none';
+                    document.getElementById('register-form').reset();
+                    auth.signOut();
+                    setTimeout(() => switchTab('login'), 2000);
+                })
+                .catch(error => {
+                    const errEl = document.getElementById('register-error');
+                    errEl.innerHTML = error.message;
+                    errEl.style.display = 'block';
+                    console.error("Register Error:", error);
+                });
+            return false;
+        }
+
+        function logout() {
+            auth.signOut();
+        }
+
+        function setAgeGroup(ageGroup) {
+            if (!auth.currentUser) return;
+
+            database.ref('users/' + auth.currentUser.uid).update({ ageGroup: ageGroup });
+
+            updateAgeGroupButtons(ageGroup);
+            if (ageGroup === '老年人' || ageGroup === 'Seniors' || ageGroup === 'Senioren' || ageGroup === 'Personas mayores') {
+                document.body.style.fontSize = '1.2rem';
+            } else {
+                document.body.style.fontSize = '1rem';
+            }
+        }
+
+        function updateAgeGroupButtons(savedAgeGroup) {
+            document.querySelectorAll('.age-toggle button').forEach(button => {
+                if (button.textContent === savedAgeGroup) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                database.ref('users/' + user.uid).on('value', snapshot => {
+                    currentUserData = snapshot.val();
+                    if (currentUserData) {
+                        document.getElementById('username-display').textContent = currentUserData.username;
+                        document.getElementById('username-display-en').textContent = currentUserData.username;
+                        document.getElementById('username-display-de').textContent = currentUserData.username;
+                        document.getElementById('username-display-fr').textContent = currentUserData.username;
+                        document.getElementById('username-display-es').textContent = currentUserData.username;
+
+                        document.getElementById('user-profile').style.display = 'block';
+                        document.getElementById('auth-forms').style.display = 'none';
+
+                        if (currentUserData.language) {
+                            setLanguage(currentUserData.language);
+                        }
+                        if (currentUserData.ageGroup) {
+                            updateAgeGroupButtons(currentUserData.ageGroup);
+                            if (currentUserData.ageGroup === '老年人' || currentUserData.ageGroup === 'Seniors' || currentUserData.ageGroup === 'Senioren' || currentUserData.ageGroup === 'Personas mayores') {
+                                document.body.style.fontSize = '1.2rem';
+                            }
+                        }
+                    }
+                });
+            } else {
+                currentUserData = null;
+                document.getElementById('user-profile').style.display = 'none';
+                document.getElementById('auth-forms').style.display = 'block';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            setLanguage('zh-CN');
+        });
+    </script>
+</body>
+</html>
