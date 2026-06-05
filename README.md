@@ -1,44 +1,47 @@
 # Cold Prevention Guardian
 
-Cold Prevention Guardian is an undergraduate Android project for daily cold and flu prevention support. The app helps users record body temperature, monitor short-term trends, receive rule-based health assessments, read medication guidance, ask an AI assistant for contextual advice, and interact with a lightweight community feed.
+Cold Prevention Guardian is an undergraduate health-support project for daily cold and flu prevention. It contains both a native Android application and a web version with a similar feature set: body-temperature tracking, trend visualization, rule-based health assessment, medication guidance, AI-assisted advice, user accounts, multilingual UI, and a lightweight community feed.
 
-The project explores how a mobile health app can turn a simple daily measurement into timely, understandable feedback while combining cloud storage, multilingual UI design, and AI-assisted conversation.
+The project explores how a simple daily measurement can be turned into understandable health feedback through mobile/web interfaces, cloud storage, and contextual AI interaction.
 
-## Source Code
+## Project Versions
 
-The Android application source is currently kept on the [`Android` branch](https://github.com/Phantom-0000/Cold-Prevention-Guardian-APP/tree/Android/Cold%20Prevention%20Guardian%20APP) under:
+| Version | Branch | Main files | Description |
+| --- | --- | --- | --- |
+| Android app | [`Android`](https://github.com/Phantom-0000/Cold-Prevention-Guardian-APP/tree/Android) | `Cold Prevention Guardian APP/` | Native Android implementation built with Kotlin, Jetpack Compose, Firebase, and Retrofit. |
+| Web app | [`Web`](https://github.com/Phantom-0000/Cold-Prevention-Guardian-APP/tree/Web) | `Cold Prevention Guardian.html`, `profile.html` | Browser-based implementation built with HTML, CSS, JavaScript, Firebase Web SDK, Chart.js, and DeepSeek API calls. |
 
-```text
-Cold Prevention Guardian APP/
-```
+The default `main` branch is used as the GitHub landing page for the whole project.
 
-The default `main` branch is used as the GitHub project landing page. An earlier HTML prototype is available on the `Web` branch.
+## Shared Features
 
-## Key Features
+- Email/password login and registration through Firebase Authentication.
+- User profile with age-group and language preferences.
+- Daily body-temperature recording with date selection and input validation.
+- Recent temperature history with a line chart and fever reference markers.
+- Health assessment based on the latest temperature.
+- Medication and prevention guidance with warning notes.
+- AI health assistant that uses the user's latest temperature as conversation context.
+- Community comments with real-time updates and like interactions.
+- Multilingual interface support for Chinese, English, German, French, and Spanish.
 
-- User authentication with Firebase Email/Password login and registration.
-- Personal temperature tracking with date selection, input validation, and cloud persistence.
-- Seven-record temperature history with a line chart and fever reference line.
-- Rule-based health assessment for normal temperature, mild elevation, fever, and emergency high-fever scenarios.
-- Medication information cards for prevention and treatment guidance, including warnings for selected medicines.
-- AI health assistant using DeepSeek chat completions, with the user's latest temperature injected into the conversation context.
-- Community comment feed with real-time Firebase updates and like toggling.
-- Profile settings for age group and app language.
-- Multilingual resources for Chinese, English, German, French, and Spanish.
+## Android Implementation
 
-## Tech Stack
+The Android version is a native mobile app built around Jetpack Compose and an MVVM-style structure.
+
+### Android Tech Stack
 
 | Area | Technology |
 | --- | --- |
-| Mobile app | Kotlin, Android, Jetpack Compose, Material 3 |
-| Architecture | MVVM-style ViewModels, Kotlin StateFlow, repository layer |
+| UI | Kotlin, Jetpack Compose, Material 3 |
+| State management | ViewModel, Kotlin StateFlow |
 | Navigation | Jetpack Navigation Compose |
 | Backend services | Firebase Authentication, Firebase Realtime Database |
 | AI integration | DeepSeek Chat API through Retrofit and OkHttp |
-| Charts | MPAndroidChart embedded in Compose through AndroidView |
-| Build system | Gradle Kotlin DSL, Android Gradle Plugin |
+| Charts | MPAndroidChart embedded with `AndroidView` |
+| Build system | Gradle Kotlin DSL |
 
-## App Architecture
+### Android Architecture
 
 ```text
 Jetpack Compose Screens
@@ -54,24 +57,48 @@ Repository Layer
         +-- DeepSeek Chat API
 ```
 
-The UI is built with Compose screens for authentication, dashboard monitoring, health details, AI chat, and profile settings. ViewModels hold reactive screen state and call repository classes that encapsulate Firebase and network operations.
+The Android source code is organized into `data`, `ui`, and `viewmodel` packages. Repositories encapsulate Firebase and network operations, while ViewModels expose reactive UI state to Compose screens.
+
+## Web Implementation
+
+The Web version provides the same core workflow in a static browser application.
+
+### Web Tech Stack
+
+| Area | Technology |
+| --- | --- |
+| UI | HTML, CSS, JavaScript |
+| Authentication | Firebase Web SDK v8 |
+| Database | Firebase Realtime Database |
+| Charts | Chart.js |
+| AI integration | DeepSeek Chat API through `fetch` |
+| Deployment model | Static pages, no build step required |
+
+### Web Pages
+
+```text
+Cold Prevention Guardian.html   Main dashboard, health assessment, medication guidance, comments, AI assistant
+profile.html                    Login, registration, profile, language, and age-group settings
+```
+
+The web app includes a responsive dark-themed interface, multilingual content blocks, Firebase-backed user data, real-time comments, Chart.js temperature visualization, and AI advice generation based on the latest recorded temperature.
 
 ## Health Assessment Logic
 
-The app uses the latest temperature record to generate an immediate health assessment:
+Both versions use the latest temperature record to generate immediate guidance:
 
 | Latest temperature | Assessment level | Example response |
 | --- | --- | --- |
-| `< 37.3 C` | Normal temperature | General prevention and hygiene advice |
+| `< 37.3 C` | Normal temperature | General prevention, hygiene, and monitoring advice |
 | `37.3 C - 37.9 C` | Mildly elevated temperature | Rest, hydration, and closer monitoring |
-| `38.0 C - 38.9 C` | High fever / suspected flu | Stronger warnings and doctor consultation guidance |
+| `38.0 C - 38.9 C` | High fever / possible flu | Stronger warnings and doctor-consultation guidance |
 | `>= 39.0 C` | Emergency high fever | Urgent medical intervention advice |
 
-This logic is intended for educational and preventative guidance only. It is not a medical diagnosis system and should not replace professional medical care.
+This project is for educational and preventive guidance only. It is not a medical diagnosis system and should not replace professional medical care.
 
 ## Data Model
 
-Firebase Realtime Database is used for user profiles, personal temperature records, and community comments.
+Firebase Realtime Database is used for user profiles, temperature records, and community comments. The Android and Web versions use the same conceptual structure, with minor implementation differences in how lists are stored.
 
 ```text
 users/{uid}
@@ -80,7 +107,7 @@ users/{uid}
   language
   ageGroup
   registeredAt
-  temperatureRecords/{index}
+  temperatureRecords
     date
     temperature
     timestamp
@@ -94,11 +121,9 @@ comments/{commentId}
   likedBy
 ```
 
-Temperature records are sorted by timestamp and trimmed to the latest seven entries for compact trend monitoring.
+Temperature records are sorted by date or timestamp and limited to the most recent records for compact trend monitoring.
 
-## Running Locally
-
-1. Clone the repository and switch to the Android source branch:
+## Running the Android App
 
 ```bash
 git clone https://github.com/Phantom-0000/Cold-Prevention-Guardian-APP.git
@@ -107,21 +132,7 @@ git checkout Android
 cd "Cold Prevention Guardian APP"
 ```
 
-2. Open the project in Android Studio.
-
-3. Configure Firebase:
-
-- Create or select a Firebase project.
-- Enable Email/Password authentication.
-- Enable Firebase Realtime Database.
-- Add an Android app with package name `com.example.coldpreventionguardianapp`.
-- Replace `app/google-services.json` with your own Firebase configuration if you are using a different Firebase project.
-
-4. Configure the AI API key.
-
-The coursework version calls DeepSeek through `NetworkModule.kt`. For public or production use, do not hardcode API keys in source code. Move the key into a local Gradle property, `BuildConfig` field, or another secret-management mechanism before publishing.
-
-5. Build the debug APK:
+Open the project in Android Studio, configure Firebase, then build:
 
 Windows:
 
@@ -135,42 +146,54 @@ macOS/Linux:
 ./gradlew assembleDebug
 ```
 
-## Project Structure
+Firebase setup:
+
+- Enable Email/Password authentication.
+- Enable Firebase Realtime Database.
+- Add an Android app with package name `com.example.coldpreventionguardianapp`.
+- Replace `app/google-services.json` with your own Firebase project configuration if needed.
+
+## Running the Web App
+
+```bash
+git clone https://github.com/Phantom-0000/Cold-Prevention-Guardian-APP.git
+cd Cold-Prevention-Guardian-APP
+git checkout Web
+```
+
+Then open:
 
 ```text
-Cold Prevention Guardian APP/
-  app/
-    src/main/java/com/example/coldpreventionguardianapp/
-      data/
-        model/          Domain models
-        remote/         DeepSeek Retrofit client
-        repository/     Firebase and app data repositories
-      ui/
-        auth/           Login and registration
-        dashboard/      Temperature input, latest status, and chart
-        details/        Health assessment, medication cards, community feed
-        chat/           AI assistant conversation UI
-        profile/        User settings and language selection
-      viewmodel/        Dashboard and chat state management
-    src/main/res/       Localized strings, themes, launcher assets
-  gradle/
-  build.gradle.kts
-  settings.gradle.kts
+Cold Prevention Guardian.html
 ```
+
+The page can be opened directly in a browser. For a more realistic local environment, it can also be served with any static file server.
+
+## Security Notes
+
+The coursework version contains API configuration directly in client-side code. Before making the project public or reusing it in production:
+
+- Move DeepSeek API keys out of Android source code and web JavaScript.
+- Do not call paid or private LLM APIs directly from client-side JavaScript in production.
+- Use a backend proxy or serverless function to protect secrets.
+- Rotate any exposed keys before publishing the repository.
+- Keep Firebase rules restrictive so users can only access the data they are allowed to read or write.
 
 ## What This Project Demonstrates
 
-- End-to-end Android application development with Kotlin and Jetpack Compose.
-- Reactive UI state management with StateFlow and ViewModel.
-- Cloud-backed authentication and real-time data synchronization.
-- Integration of a third-party AI chat API into a mobile workflow.
-- Health-oriented UX design, including risk thresholds, feedback cards, and user-friendly warnings.
-- Internationalization through Android resource files.
+- End-to-end development of the same product idea across web and native Android platforms.
+- Practical use of Firebase Authentication and Realtime Database.
+- Reactive Android UI design with Jetpack Compose and StateFlow.
+- Static web app development with Firebase, Chart.js, and JavaScript DOM interaction.
+- AI-assisted health guidance with live user context.
+- Multilingual UI design for an international user base.
+- Health-oriented UX thinking around risk thresholds, warnings, prevention, and user-friendly feedback.
 
 ## Future Improvements
 
-- Move all API secrets out of source code and rotate any exposed keys.
-- Add automated tests for temperature thresholds, repository mapping, and ViewModel state transitions.
-- Improve data validation and error handling for offline or unstable network conditions.
-- Add optional wearable or Bluetooth thermometer integration for automatic temperature capture.
-- Add screenshots or a demo video to make the repository easier to review.
+- Add screenshots or a short demo video for both Android and Web versions.
+- Add automated tests for temperature thresholds, repository mapping, and ViewModel logic.
+- Move shared assessment rules into a reusable module or documented decision table.
+- Improve offline handling and network error states.
+- Add optional wearable or Bluetooth thermometer integration.
+- Deploy the Web version with protected API access through a backend service.
